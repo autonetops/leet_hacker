@@ -1,13 +1,14 @@
-from typing import List
-
 class Solution:
     def findClosestNumber(self, nums: List[int]) -> int:
-        closest = nums[0]
-        for x in nums:
-            if abs(x) < abs(closest):
-                closest = x
-        
-        if closest < 0 and abs(closest) in nums:
-            return abs(closest)
-        else:
-            return closest
+        distance = float('inf')
+        for num in nums:
+            if abs(num) < abs(distance):
+                distance = num
+            elif abs(num) == abs(distance):
+                # have different signal
+                if distance ^ num < 0:
+                    distance = abs(num)
+                else:
+                    distance = num
+
+        return distance                 
